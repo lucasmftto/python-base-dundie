@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython
+.PHONY: install virtualenv ipython clean test
 
 install:
 	@echo "Installing  for dev environment"
@@ -28,3 +28,7 @@ clean:            ## Clean unused files.
 	@rm -rf htmlcov
 	@rm -rf .tox/
 	@rm -rf docs/_build
+
+
+test:             ## Run tests.
+	@.venv/bin/pytest -vv -s
