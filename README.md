@@ -1,4 +1,7 @@
 # python-base-dundie
+
+[![CI](https://github.com/lucasmftto/python-base-dundie/actions/workflows/main.yml/badge.svg)](https://github.com/lucasmftto/python-base-dundie/actions/workflows/main.yml)
+
 Repo utilizado para aulas do curso Python Base da LinuxTips
 
 Todo conteudo foi baseado no curso e no seguinte repositorio: https://github.com/rochacbruno/dundie-rewards
