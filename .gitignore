@@ -162,3 +162,7 @@ cython_debug/
 
 .log
 .log**
+
+idea/
+.idea/
+*idea/

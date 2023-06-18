@@ -23,7 +23,7 @@ def main():
     args = parser.parse_args()
     
     try:
-       print(*globals()[args.subcommand](args.filepath), sep="\n")
+       print(*globals()[args.subcommand](args.filepath))
     except KeyError:
         print(f"Invalid subcommand")
 
