@@ -15,5 +15,5 @@ def test_load(request):
     
     request.addfinalizer(lambda: print('Roda depois do teste'))
     
-    assert len(load(PEOPLE_FILE)) == 2
+    assert len(load(PEOPLE_FILE)) == 3
     assert load(PEOPLE_FILE)[0][0] == 'L'
