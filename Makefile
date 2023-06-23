@@ -36,7 +36,7 @@ test:             ## Run tests.
 
 
 testcicd:		   ## Run tests for CI.
-	@.venv/bin/pytest -v --junitxml=test-result.xml
+	@pytest -v --junitxml=test-result.xml
 
 
 watch:            ## Run tests on file changes.
