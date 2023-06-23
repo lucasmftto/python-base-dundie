@@ -1,5 +1,6 @@
 .PHONY: install virtualenv ipython clean test watch testci
 
+
 install:
 	@echo "Installing  for dev environment"
 	@.venv/bin/python -m pip install -e '.[dev]'
@@ -33,8 +34,10 @@ clean:            ## Clean unused files.
 test:             ## Run tests.
 	@.venv/bin/pytest -vv -s
 
+
 testci:		   ## Run tests for CI.
 	@.venv/bin/pytest -v --junitxml=test-results.xml
+
 
 watch:            ## Run tests on file changes.
 	@ls **/*.py | entr pytest

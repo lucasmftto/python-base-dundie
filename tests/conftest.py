@@ -13,9 +13,12 @@ def pytest_configure(config):
         config.addinivalue_line(
         "markers", line
     )
+
     
 @pytest.fixture(autouse=True)
 def go_to_tmpdir(request):
     tmpdir = request.getfixturevalue('tmpdir')
     with tmpdir.as_cwd():
         yield
+
+        

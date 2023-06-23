@@ -3,6 +3,7 @@ from dundie.core import load
 from .constants import PEOPLE_FILE
 
 
+
 def setup_module(module):
     print('Roda antes do módulo')
     
