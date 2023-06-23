@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test watch testci
+.PHONY: install virtualenv ipython clean test watch testcicd
 
 
 install:
@@ -35,7 +35,7 @@ test:             ## Run tests.
 	@.venv/bin/pytest -vv -s
 
 
-testci:		   ## Run tests for CI.
+testcicd:		   ## Run tests for CI.
 	@.venv/bin/pytest -v --junitxml=test-result.xml
 
 
