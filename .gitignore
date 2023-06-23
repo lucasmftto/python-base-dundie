@@ -166,3 +166,6 @@ cython_debug/
 idea/
 .idea/
 *idea/
+
+test-result.xml
+
