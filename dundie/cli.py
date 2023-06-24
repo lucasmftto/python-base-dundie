@@ -1,5 +1,7 @@
 import argparse
-from dundie.core import load
+
+from dundie.core import load  # noqa
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -21,9 +23,8 @@ def main():
     )
 
     args = parser.parse_args()
-    
-    try:
-       print(*globals()[args.subcommand](args.filepath))
-    except KeyError:
-        print(f"Invalid subcommand")
 
+    try:
+        print(*globals()[args.subcommand](args.filepath))
+    except KeyError:
+        print("Invalid subcommand")
