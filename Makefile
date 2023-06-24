@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test watch testcicd
+.PHONY: install virtualenv ipython clean test watch testcicd lint fmt
 
 
 install:
@@ -41,3 +41,10 @@ testcicd:		   ## Run tests for CI.
 
 watch:            ## Run tests on file changes.
 	@ls **/*.py | entr pytest
+
+lint:
+	@.venv/bin/pflake8
+
+fmt:
+	@.venv/bin/isort dundie tests integration
+	@.venv/bin/black dundie tests integration
