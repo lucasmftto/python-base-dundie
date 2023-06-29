@@ -1,7 +1,6 @@
 import pkg_resources
 import rich_click as click
 from dundie import core
-from rich import print
 from rich.console import Console
 from rich.table import Table
 
