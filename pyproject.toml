@@ -12,7 +12,9 @@ exclude = [
     ".git",
     "__pycache__",
     "build",
-    ".venv"
+    ".venv",
+    "tests",
+    "integration"
 ]
 max-line-length = 79
 
