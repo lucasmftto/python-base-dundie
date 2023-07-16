@@ -3,7 +3,7 @@
 
 install:
 	@echo "Installing  for dev environment"
-	@.venv/bin/python -m pip install -e '.[dev]'
+	@.venv/bin/python -m pip install -e '.[test]'
 
 virtualenv:
 	@echo "Creating virtualenv"
@@ -32,15 +32,14 @@ clean:            ## Clean unused files.
 
 
 test:             ## Run tests.
-	@.venv/bin/pytest -vv -s
-
+	@.venv/bin/pytest -s --forked
 
 testcicd:		   ## Run tests for CI.
-	@pytest -v --junitxml=test-result.xml
+	@pytest -v  --forked --junitxml=test-result.xml
 
 
 watch:            ## Run tests on file changes.
-	@ls **/*.py | entr pytest
+	@ls **/*.py | entr pytest  --forked
 
 lint:
 	@.venv/bin/pflake8
