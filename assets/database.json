@@ -1,0 +1,62 @@
+{
+    "people": {
+        "lucas@dundie.com": {
+            "name": "Lucas Favaretto",
+            "dept": "BI",
+            "role": "Eng"
+        },
+        "chico@dundie.com": {
+            "name": "chico chicolino",
+            "dept": "BI",
+            "role": "estag"
+        }
+    },
+    "balance": {
+        "lucas@dundie.com": 500,
+        "chico@dundie.com": 500
+    },
+    "movement": {
+        "lucas@dundie.com": [
+            {
+                "value": 500,
+                "date": "2023-07-16T16:25:55.440061",
+                "actor": "SYSTEM"
+            },
+            {
+                "value": 30,
+                "date": "2023-07-16T17:20:22.152951",
+                "actor": "lucas"
+            },
+            {
+                "value": -30,
+                "date": "2023-07-16T17:24:13.608745",
+                "actor": "lucas"
+            }
+        ],
+        "chico@dundie.com": [
+            {
+                "value": 500,
+                "date": "2023-07-16T16:25:55.443990",
+                "actor": "SYSTEM"
+            },
+            {
+                "value": 30,
+                "date": "2023-07-16T17:20:22.152959",
+                "actor": "lucas"
+            },
+            {
+                "value": -30,
+                "date": "2023-07-16T17:24:13.608755",
+                "actor": "lucas"
+            }
+        ]
+    },
+    "users": {
+        "lucas@dundie.com": {
+            "password": "ICsMly3Y"
+        },
+        "chico@dundie.com": {
+            "password": "cVwghjDm"
+        }
+    }
+}
