@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import pytest
 from dundie.database import (
     EMPTY_DATABASE,

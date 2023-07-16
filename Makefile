@@ -35,7 +35,7 @@ test:             ## Run tests.
 	@.venv/bin/pytest -s --forked
 
 testcicd:		   ## Run tests for CI.
-	@pytest -v  --forked --junitxml=test-result.xml
+	@pytest -v --forked --junitxml=test-result.xml
 
 
 watch:            ## Run tests on file changes.
