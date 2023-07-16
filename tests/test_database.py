@@ -1,11 +1,12 @@
 import pytest
-from dundie.database import (
+
+from dundie.database import (  # isort:skip
     EMPTY_DATABASE,
     add_movement,
     add_person,
     commit,
     connect,
-)
+)  # isort:skip
 
 
 @pytest.mark.unit
