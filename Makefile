@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test watch testcicd lint fmt
+.PHONY: install virtualenv ipython clean test watch testcicd lint fmt build publish-test publish
 
 
 install:
@@ -47,3 +47,13 @@ lint:
 fmt:
 	@.venv/bin/isort dundie tests integration
 	@.venv/bin/black dundie tests integration
+
+
+build:            ## Build package.
+	@.venv/bin/python setup.py sdist bdist_wheel
+
+publish-test:          ## Publish package.
+	@twine upload --repository testpypi dist/*
+
+publish:          ## Publish package.
+	@twine upload dist/*

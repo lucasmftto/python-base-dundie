@@ -19,13 +19,14 @@ def read_requirements(path):
 
 setup(
     name='dundie',
-    version='0.1.0',
+    version='0.1.1',
     description="Reward Points System for Dunder Mifflin",
     long_description=read("README.md"),
     long_description_content_type="text/markdown",
     author="Lucas Favaretto, Bruno Rocha(LinuxTips)",
     python_requires=">=3.8",
-    packages=find_packages(),
+    packages=find_packages(exclude=["integration"]),
+    include_package_data=True,
     entry_points={
         "console_scripts": [
             "dundie = dundie.__main__:main"

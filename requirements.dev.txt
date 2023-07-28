@@ -7,3 +7,5 @@ pyproject-flake8
 black
 isort
 mkdocs
+wheel
+twine
