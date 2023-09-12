@@ -1,4 +1,4 @@
-.PHONY: install virtualenv ipython clean test watch testcicd lint fmt build publish-test publish
+.PHONY: install virtualenv ipython clean test watch testcicd lint fmt build publish-test publish mypy
 
 
 install:
@@ -57,3 +57,6 @@ publish-test:          ## Publish package.
 
 publish:          ## Publish package.
 	@twine upload dist/*
+
+mypy:
+	@.venv/bin/mypy dundie tests integration
