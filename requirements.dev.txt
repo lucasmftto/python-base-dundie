@@ -9,3 +9,4 @@ isort
 mkdocs
 wheel
 twine
+mypy
