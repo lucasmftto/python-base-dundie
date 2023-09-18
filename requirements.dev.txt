@@ -10,3 +10,4 @@ mkdocs
 wheel
 twine
 mypy
+pydantic
