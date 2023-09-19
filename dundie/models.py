@@ -3,6 +3,7 @@ from decimal import Decimal
 from datetime import datetime
 from dundie.utils.email import check_valid_email
 
+
 class Person(BaseModel):
     pk: str
     name: str
@@ -17,6 +18,7 @@ class Person(BaseModel):
     
     def __str__(self):
         return f"{self.name} ({self.role})"
+
     
 class Balance(BaseModel):
     person: Person
@@ -25,12 +27,15 @@ class Balance(BaseModel):
     @validator('value', pre=True)
     def value_logic(cls, v):
         return Decimal(v)
+
     
     class Config:
         json_encoders = {Person : lambda p: p.pk}
+
 
 class Movement(BaseModel):
     person: Person
     date: datetime
     actor: str
     value: Decimal
+    
