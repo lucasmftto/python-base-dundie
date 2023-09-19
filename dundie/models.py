@@ -1,7 +1,8 @@
-from pydantic import BaseModel, validator
-from decimal import Decimal
 from datetime import datetime
+from decimal import Decimal
+
 from dundie.utils.email import check_valid_email
+from pydantic import BaseModel, validator
 
 
 class Person(BaseModel):
@@ -10,7 +11,7 @@ class Person(BaseModel):
     dept: str
     role: str
 
-    @validator('pk')
+    @validator("pk")
     def validate_email(cls, v):
         if not check_valid_email(v):
             raise ValueError(f"{v} is not a valid email")
@@ -24,7 +25,7 @@ class Balance(BaseModel):
     person: Person
     value: Decimal
 
-    @validator('value', pre=True)
+    @validator("value", pre=True)
     def value_logic(cls, v):
         return Decimal(v)
 
