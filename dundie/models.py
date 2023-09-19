@@ -9,28 +9,27 @@ class Person(BaseModel):
     name: str
     dept: str
     role: str
-    
+
     @validator('pk')
     def validate_email(cls, v):
         if not check_valid_email(v):
             raise ValueError(f"{v} is not a valid email")
         return v
-    
+
     def __str__(self):
         return f"{self.name} ({self.role})"
 
-    
+
 class Balance(BaseModel):
     person: Person
     value: Decimal
-    
+
     @validator('value', pre=True)
     def value_logic(cls, v):
         return Decimal(v)
 
-    
     class Config:
-        json_encoders = {Person : lambda p: p.pk}
+        json_encoders = {Person: lambda p: p.pk}
 
 
 class Movement(BaseModel):
@@ -38,4 +37,3 @@ class Movement(BaseModel):
     date: datetime
     actor: str
     value: Decimal
-    
