@@ -1,4 +1,4 @@
-from pydantic import BaseModel, validator, ValidationError
+from pydantic import BaseModel, validator
 from decimal import Decimal
 from datetime import datetime
 from dundie.utils.email import check_valid_email
