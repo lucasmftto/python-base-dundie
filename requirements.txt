@@ -2,3 +2,4 @@ click
 setuptools
 rich
 rich-click
+pydantic
