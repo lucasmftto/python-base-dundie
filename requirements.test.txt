@@ -4,4 +4,5 @@ flake8
 pyproject-flake8
 black
 isort
-pydantic
+sqlalchemy==1.4.35
+sqlmodel

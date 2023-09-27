@@ -2,10 +2,11 @@ from datetime import datetime
 from decimal import Decimal
 
 from dundie.utils.email import check_valid_email
-from pydantic import BaseModel, validator
+from pydantic import validator
+from sqlmodel import Field, SQLModel
 
 
-class Person(BaseModel):
+class Person(SQLModel, table=True):
     pk: str
     name: str
     dept: str
@@ -21,7 +22,7 @@ class Person(BaseModel):
         return f"{self.name} ({self.role})"
 
 
-class Balance(BaseModel):
+class Balance(SQLModel, table=True):
     person: Person
     value: Decimal
 
@@ -33,7 +34,7 @@ class Balance(BaseModel):
         json_encoders = {Person: lambda p: p.pk}
 
 
-class Movement(BaseModel):
+class Movement(SQLModel, table=True):
     person: Person
     date: datetime
     actor: str
