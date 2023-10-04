@@ -6,4 +6,5 @@ SMTP_TIMEOUT = 5
 EMAIL_FROM = "master@master.com"
 
 ROOT_PATH = os.path.dirname(__file__)
-DATABASE_PATH = os.path.join(ROOT_PATH, "..", "assets", "database.json")
+DATABASE_PATH = os.path.join(ROOT_PATH, "..", "assets", "database.db")
+SQL_CON_STR = f"sqlite:///{DATABASE_PATH}"
