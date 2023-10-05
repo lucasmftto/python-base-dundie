@@ -1,10 +1,10 @@
-from datetime import datetime
-from sqlmodel import Session
-from dundie.models import Person
+from sqlmodel import Session, select
+from dundie.models import Person, User, Movement, Balance
+from typing import Optional
 
 from dundie.utils.email import check_valid_email, send_email
-from dundie.utils.user import generate_simple_password
-from dundie.settings import DATABASE_PATH, EMAIL_FROM
+from dundie.settings import EMAIL_FROM
+
 
 def add_person(session: Session, instance: Person):
     """Saves person data to database.
@@ -13,44 +13,64 @@ def add_person(session: Session, instance: Person):
     - Set initial balance (managers = 100, others = 500)
     - Generate a password if user is new and send_email
     """
-    if not check_valid_email(pk):
-        raise ValueError(f"{pk} is not a valid email")
 
-    table = db["people"]
-    person = table.get(pk, {})
-    created = not bool(person)
-    person.update(data)
-    table[pk] = person
+    if not check_valid_email(instance.email):
+        raise ValueError(f"{instance.email} is not a valid email")
+
+    existing = session.exec(
+        select(Person).where(Person.email == instance.email)
+    ).first()
+
+    created = existing is None
+
     if created:
-        set_initial_balance(db, pk, person)
-        password = set_initial_password(db, pk)
-        send_email(EMAIL_FROM, pk, "Your dundie password", password)
-        # TODO: Encrypt and send only link not password
-    return person, created
+        session.add(instance)
+        set_initial_balance(session, instance)
+        password = set_initial_password(session, instance)
+        send_email(
+            EMAIL_FROM, instance.email, "Your dundie password", password
+        )
+        return instance, created
+    else:
+        existing.dept = instance.dept
+        existing.role = instance.role
+        session.add(existing)
+        return existing, created
 
 
 def set_initial_password(session: Session, instance: Person):
     """Generated and saves password"""
-    db["users"].setdefault(pk, {})
-    db["users"][pk]["password"] = generate_simple_password(8)
-    return db["users"][pk]["password"]
+    user = User(person=instance)
+    session.add(user)
+    return user.password
 
 
-def set_initial_balance(session: Session, instance: Person):
+def set_initial_balance(session: Session, person: Person):
     """Sets the initial balance for a person."""
-    value = 100 if person["role"] == "Manager" else 500
-    add_movement(db, pk, value)
+    value = 100 if person.role == "Manager" else 500
+    add_movement(session, person, value)
 
 
-def add_movement(session: Session, instance: Person):
+def add_movement(
+    session: Session,
+    person: Person,
+    value: int,
+    actor: Optional[str] = "system",
+):
     """Adds a movement to the database."""
-    movement = db["movement"].setdefault(pk, [])
-    movement.append(
-        {
-            "value": value,
-            "date": datetime.now().isoformat(),
-            "actor": actor,
-        }
-    )
-    db["balance"][pk] = sum([item["value"] for item in movement])
+    movement = Movement(person=person, value=value, actor=actor)
+    session.add(movement)
 
+    movements = session.exec(select(Movement).where(Movement.person == person))
+
+    total = sum([m.value for m in movements])
+
+    existing = session.exec(
+        select(Balance).where(Balance.person == person)
+    ).first()
+
+    if existing:
+        existing.value = total
+        session.add(existing)
+    else:
+        session.add(Balance(person=person, value=total))
