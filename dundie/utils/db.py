@@ -35,7 +35,7 @@ def add_person(session: Session, instance: Person):
         existing.dept = instance.dept
         existing.role = instance.role
         session.add(existing)
-        return existing, created
+        return instance, created
 
 
 def set_initial_password(session: Session, instance: Person):

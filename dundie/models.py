@@ -26,7 +26,7 @@ class Person(SQLModel, table=True):
         return v
 
     def __str__(self):
-        return f"{self.name} ({self.role})"
+        return f"{self.name} ({self.role}) - {self.email} - {self.dept}"
 
 
 class Balance(SQLModel, table=True):

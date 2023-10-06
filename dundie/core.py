@@ -8,6 +8,7 @@ from dundie.utils.db import add_movement, add_person
 from dundie.models import Person
 from dundie.database import get_session
 from dundie.utils.log import get_logger
+from dundie.settings import DATE_FORMAT
 
 log = get_logger()
 Query = Dict[str, Any]
@@ -23,7 +24,7 @@ def load(filepath: str) -> ResultDict:
         raise e
 
     people = []
-    headers = ["name", "dept", "role", "email"]
+    headers = ["email", "name", "dept", "role"]
     # headers = ["e-mail", "name", "dept", "role"]
     with get_session() as session:
         for line in csv_data:
@@ -62,7 +63,7 @@ def read(**query: Query) -> ResultDict:
                 {
                     "email": person.email,
                     "balance": person.balance[0].value,
-                    "last_movement": person.movement[-1].date,
+                    "last_movement": person.movement[-1].date.strftime(DATE_FORMAT),
                     **person.dict(exclude={"id"}),
                 }
             )
@@ -77,10 +78,11 @@ def add(value: int, **query: Query):
     if not people:
         raise RuntimeError("Not Found")
 
-    with get_session(autocommit=True) as session:
+    with get_session() as session:
         user = os.getenv("USER")
         for person in people:
             instance = session.exec(
                 select(Person).where(Person.email == person["email"])
-            )
+            ).first()
             add_movement(session, instance, value, user)
+        session.commit()
