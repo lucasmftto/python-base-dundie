@@ -38,7 +38,7 @@ def load(filepath):
     - Loads the data to the database
     """
     table = Table(title="Dundie Mifflin Associates")
-    headers = ["email", "name", "dept", "role", "created"]
+    headers = ["email", "name", "dept", "role", "currency", "created"]
     for header in headers:
         table.add_column(header, style="magenta")
 

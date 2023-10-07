@@ -15,7 +15,8 @@ exclude = [
     "build",
     ".venv",
     "tests",
-    "integration"
+    "integration",
+    "migrations"
 ]
 max-line-length = 79
 
