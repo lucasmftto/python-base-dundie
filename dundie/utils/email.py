@@ -8,11 +8,11 @@ from dundie.utils.log import get_logger
 
 log = get_logger()
 
-regex = r"\b[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[A-Z|a-z]{2,}\b"
+regex = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
 
 
-def check_valid_email(address):
-    """Checks if the email address is valid."""
+def check_valid_email(address: str) -> bool:
+    """Return True if email is valid"""
     return bool(re.fullmatch(regex, address))
 
 

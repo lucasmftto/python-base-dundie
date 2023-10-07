@@ -10,4 +10,5 @@ mkdocs
 wheel
 twine
 mypy
-pydantic
+sqlalchemy==1.4.35
+sqlmodel
