@@ -4,8 +4,12 @@ from typing import Optional
 
 from dundie.utils.email import check_valid_email
 from dundie.utils.user import generate_simple_password
-from pydantic import validator, condecimal
-from sqlmodel import Field, SQLModel, Relationship
+from pydantic import condecimal, validator
+from sqlmodel import Field, Relationship, SQLModel
+
+
+class InvalidEmailError(Exception):
+    ...
 
 
 class Person(SQLModel, table=True):
@@ -20,9 +24,9 @@ class Person(SQLModel, table=True):
     user: "User" = Relationship(back_populates="person")
 
     @validator("email")
-    def validate_email(cls, v):
+    def validate_email(cls, v: str) -> str:
         if not check_valid_email(v):
-            raise ValueError(f"{v} is not a valid email")
+            raise InvalidEmailError(f"Invalid email for {v!r}")
         return v
 
     def __str__(self):
@@ -47,7 +51,7 @@ class Balance(SQLModel, table=True):
 class Movement(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
     person_id: int = Field(foreign_key="person.id")
-    date: datetime = Field(default_factory=lambda : datetime.now())
+    date: datetime = Field(default_factory=lambda: datetime.now())
     actor: str = Field(nullable=False, index=True)
     value: condecimal(decimal_places=3) = Field(default=0)
 

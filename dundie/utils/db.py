@@ -1,9 +1,9 @@
-from sqlmodel import Session, select
-from dundie.models import Person, User, Movement, Balance
 from typing import Optional
 
-from dundie.utils.email import check_valid_email, send_email
+from dundie.models import Balance, Movement, Person, User
 from dundie.settings import EMAIL_FROM
+from dundie.utils.email import send_email
+from sqlmodel import Session, select
 
 
 def add_person(session: Session, instance: Person):
@@ -13,9 +13,6 @@ def add_person(session: Session, instance: Person):
     - Set initial balance (managers = 100, others = 500)
     - Generate a password if user is new and send_email
     """
-
-    if not check_valid_email(instance.email):
-        raise ValueError(f"{instance.email} is not a valid email")
 
     existing = session.exec(
         select(Person).where(Person.email == instance.email)

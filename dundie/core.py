@@ -1,14 +1,13 @@
 import os
 from csv import reader
-from typing import Dict, Any, List
+from typing import Any, Dict, List
 
-from sqlmodel import select
-
-from dundie.utils.db import add_movement, add_person
-from dundie.models import Person
 from dundie.database import get_session
-from dundie.utils.log import get_logger
+from dundie.models import Person
 from dundie.settings import DATE_FORMAT
+from dundie.utils.db import add_movement, add_person
+from dundie.utils.log import get_logger
+from sqlmodel import select
 
 log = get_logger()
 Query = Dict[str, Any]
@@ -63,7 +62,9 @@ def read(**query: Query) -> ResultDict:
                 {
                     "email": person.email,
                     "balance": person.balance[0].value,
-                    "last_movement": person.movement[-1].date.strftime(DATE_FORMAT),
+                    "last_movement": person.movement[-1].date.strftime(
+                        DATE_FORMAT
+                    ),
                     **person.dict(exclude={"id"}),
                 }
             )

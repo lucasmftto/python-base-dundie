@@ -1,11 +1,10 @@
-from sqlmodel import Session, create_engine
-from sqlmodel.sql.expression import Select, SelectOfScalar
+import warnings
 
 from dundie import models
 from dundie.settings import SQL_CON_STR
-
-import warnings
 from sqlalchemy.exc import SAWarning
+from sqlmodel import Session, create_engine
+from sqlmodel.sql.expression import Select, SelectOfScalar
 
 SelectOfScalar.inherit_cache = True
 Select.inherit_cache = True
