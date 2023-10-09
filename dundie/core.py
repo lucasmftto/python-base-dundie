@@ -58,7 +58,9 @@ def read(**query: Query) -> ResultDict:
         sql = sql.where(*query_statements)
 
     with get_session() as session:
-        currencies = session.exec(select(Person.currency).distinct(Person.currency))
+        currencies = session.exec(
+            select(Person.currency).distinct(Person.currency)
+        )
         rates = get_rates(currencies)
 
         results = session.exec(sql)
@@ -72,7 +74,7 @@ def read(**query: Query) -> ResultDict:
                         DATE_FORMAT
                     ),
                     **person.dict(exclude={"id"}),
-                    **{"value": total}
+                    **{"value": total},
                 }
             )
     return return_data

@@ -1,9 +1,9 @@
 from decimal import Decimal
 from typing import Dict, List
-from pydantic import BaseModel, Field
-import httpx
 
+import httpx
 from dundie.settings import API_BASE_URL
+from pydantic import BaseModel, Field
 
 
 class USDRate(BaseModel):
@@ -27,6 +27,8 @@ def get_rates(currencies: List[str]) -> Dict[str, USDRate]:
                 data = response.json()["USD" + currency.upper()]
                 return_data[currency] = USDRate(**data)
             else:
-                return_data[currency] = USDRate(name="Invalid Currency", high=0)
+                return_data[currency] = USDRate(
+                    name="Invalid Currency", high=0
+                )
 
     return return_data
