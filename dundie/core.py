@@ -3,6 +3,7 @@ from csv import reader
 from typing import Any, Dict, List
 
 from dundie.database import get_session
+from dundie.exchange import get_rates
 from dundie.models import Person
 from dundie.settings import DATE_FORMAT
 from dundie.utils.db import add_movement, add_person
@@ -57,8 +58,12 @@ def read(**query: Query) -> ResultDict:
         sql = sql.where(*query_statements)
 
     with get_session() as session:
+        currencies = session.exec(select(Person.currency).distinct(Person.currency))
+        rates = get_rates(currencies)
+
         results = session.exec(sql)
         for person in results:
+            total = rates[person.currency].value * person.balance[0].value
             return_data.append(
                 {
                     "email": person.email,
@@ -67,6 +72,7 @@ def read(**query: Query) -> ResultDict:
                         DATE_FORMAT
                     ),
                     **person.dict(exclude={"id"}),
+                    **{"value": total}
                 }
             )
     return return_data
